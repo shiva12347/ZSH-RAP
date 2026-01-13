@@ -1,0 +1,50 @@
+@Metadata.layer: #CORE
+@UI:{headerInfo:{ typeName: 'BookingSupplement', typeNamePlural: 'BookingSupplements',
+                 title: { type: #STANDARD,
+                          label: 'BookingSupplement',
+                          value: 'BookingSupplementId' } },
+                          presentationVariant: [{ sortOrder: [{ by: 'BookingSupplementId',direction: #ASC  }]  }]}
+annotate entity ZHS_BOOKINGSUPP_C with
+{
+
+  @UI.facet: [{ id: 'BookingSupplement',
+                purpose: #STANDARD,
+                position: 10,
+                label: 'BookingSupplement',
+                type: #IDENTIFICATION_REFERENCE
+              }]
+
+
+  @UI.hidden: true
+  BooksupplUuid;
+//  @UI.hidden: true
+//  BookingUuid;
+  @UI.hidden: true
+  TravelUuid;
+  @UI.hidden: true
+  ParentUuid;
+//  @UI.lineItem: [{ position: 10,importance: #HIGH }]
+//  @UI.identification: [{ position: 10,importance: #HIGH  }]
+//  TravelId;
+//  @UI.lineItem: [{ position: 20,importance: #HIGH }]
+//  @UI.identification: [{ position: 20,importance: #HIGH  }]
+//  BookingId;
+  @UI.lineItem: [{ position: 30,importance: #HIGH }]
+  @UI.identification: [{ position: 30,importance: #HIGH  }]
+  BookingSupplementId;
+  @UI.lineItem: [{ position: 40,importance: #HIGH }]
+  @UI.identification: [{ position: 40,importance: #HIGH  }]
+  SupplementId;
+  @UI.lineItem: [{ position: 50,importance: #HIGH }]
+  @UI.identification: [{ position: 50,importance: #HIGH  }]
+  Price;
+  @UI.lineItem: [{ position: 60,importance: #HIGH }]
+  @UI.identification: [{ position: 60,importance: #HIGH  }]
+  CurrencyCode;
+
+  //   LastChangedAt;
+  /* Associations */
+  //   _Booking;
+  //   _Travel;
+
+}

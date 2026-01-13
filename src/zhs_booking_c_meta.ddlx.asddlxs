@@ -1,0 +1,66 @@
+@Metadata.layer: #CORE
+@UI:{headerInfo:{ typeName: 'Booking', typeNamePlural: 'Bookings',
+                 title: { type: #STANDARD,
+                          label: 'Booking',
+                          value: 'BookingId' } },
+                          presentationVariant: [{ sortOrder: [{ by: 'BookingId',direction: #ASC  }]  }]}
+annotate entity ZHS_BOOKING_C with
+{
+
+  @UI.facet: [{ id: 'Booking',
+                purpose: #STANDARD,
+                position: 10,
+                label: 'Booking',
+                type: #IDENTIFICATION_REFERENCE
+              },
+              { id: 'BookingSupplement',
+                purpose: #STANDARD,
+                position: 20,
+                label: 'BookingSupplement',
+                type: #LINEITEM_REFERENCE,
+                targetElement: '_BookingSupplement'
+             }]
+
+  @UI.hidden: true
+  BookingUuid;
+  @UI.hidden: true
+  ParentUuid;
+  @UI.lineItem: [{ position: 10,importance: #HIGH }]
+  @UI.identification: [{ position: 10,importance: #HIGH  }]
+//@UI.hidden: true
+  TravelId;
+  @UI.lineItem: [{ position: 20,importance: #HIGH }]
+  @UI.identification: [{ position: 20,importance: #HIGH  }]
+  BookingId;
+  @UI.lineItem: [{ position: 30,importance: #HIGH }]
+  @UI.identification: [{ position: 30,importance: #HIGH  }]
+  BookingDate;
+  @UI.lineItem: [{ position: 40,importance: #HIGH }]
+  @UI.identification: [{ position: 40,importance: #HIGH  }]
+  CustomerId;
+  @UI.lineItem: [{ position: 50,importance: #HIGH }]
+  @UI.identification: [{ position: 50,importance: #HIGH  }]
+  CarrierId;
+  @UI.lineItem: [{ position: 60,importance: #HIGH }]
+  @UI.identification: [{ position: 60,importance: #HIGH  }]
+  ConnectionId;
+  @UI.lineItem: [{ position: 70,importance: #HIGH }]
+  @UI.identification: [{ position: 70,importance: #HIGH  }]
+  FlightDate;
+  @UI.lineItem: [{ position: 80,importance: #HIGH }]
+  @UI.identification: [{ position: 80,importance: #HIGH  }]
+  FlightPrice;
+  @UI.lineItem: [{ position: 90,importance: #HIGH }]
+  @UI.identification: [{ position: 90,importance: #HIGH  }]
+  CurrencyCode;
+  @UI.lineItem: [{ position: 100,importance: #HIGH }]
+  @UI.identification: [{ position: 100,importance: #HIGH  }]
+  BookingStatus;
+  //    @UI.lineItem: [{ position: 110,importance: #HIGH }]
+  //@UI.identification: [{ position: 110,importance: #HIGH  }]
+  //  LastChangedAt;
+  /* Associations */
+  //  _BookingSupplement;
+  // _Tarvel;
+
+}

@@ -1,0 +1,109 @@
+managed implementation in class zbp_hs_travel_i unique;
+strict ( 2 ); // To follow Strict Rules
+with draft;
+
+define behavior for ZHS_TRAVEL_I alias Travel
+persistent table zhs_travel_db
+draft table zhs_travel_draft
+lock master
+total etag  LastChangedAt
+authorization master ( global, instance )
+etag master LastChangedAt   //System detect tha latestest timestamp and prevent Overwrite
+{
+  create ( authorization : global ); // You can Strict User to create and User can create
+  update;
+  delete;
+  // field ( readonly ) TravelUuid;
+  field ( numbering : managed, readonly ) TravelUuid;
+  association _Booking { create; with draft; } // user can do booking from Travel Screen
+
+
+  draft action Edit;
+  draft action Discard;
+  draft action Resume;
+  draft action  Activate optimized;
+  draft determine action prepare;
+
+  mapping for zhs_travel_db
+    {
+
+      //Interface Right Side Fileds  = Table Left side fileds
+      TravelUuid    = travel_uuid;
+      TravelId      = travel_id;
+      AgencyId      = agency_id;
+      BeginDate     = begin_date;
+      BookingFee    = booking_fee;
+      CreatedAt     = created_at;
+      CreatedBy     = created_by;
+      CurrencyCode  = currency_code;
+      CustomerId    = customer_id;
+      Description   = description;
+      EndDate       = end_date;
+      LastChangedAt = last_changed_at;
+      LastChangedBy = last_changed_by;
+      OverallStatus = overall_status;
+      TotalPrice    = total_price;
+    }
+
+}
+
+define behavior for ZHS_BOOKING_I alias Booking
+persistent table zhs_booking_db
+draft table zhs_bookingdraft
+lock dependent by _Tarvel
+authorization dependent by _Tarvel
+etag master LastChangedAt
+{
+  update;
+  delete;
+  //  field ( readonly ) BookingUuid;
+  field ( readonly ) ParentUuid, TravelId;
+  field ( numbering : managed, readonly ) BookingUuid;
+  association _Tarvel;
+  association _BookingSupplement { create;with draft; }
+
+  mapping for zhs_booking_db
+    {
+      BookingUuid   = booking_uuid;
+      ParentUuid    = parent_uuid;
+      TravelId      = travel_id;
+      BookingId     = booking_id;
+      BookingDate   = booking_date;
+      BookingStatus = booking_status;
+      CarrierId     = carrier_id;
+      ConnectionId  = connection_id;
+      CurrencyCode  = currency_code;
+      CustomerId    = customer_id;
+      FlightDate    = flight_date;
+      FlightPrice   = flight_price;
+      LastChangedAt = last_changed_at;
+    }
+
+}
+
+define behavior for ZHS_BOOKINGSUPP_I alias BookingSuppl
+persistent table zhs_booking_supp
+draft table zhs_supp_draft
+lock dependent by _Travel
+authorization dependent by _Travel
+etag master LastChangedAt
+{
+  update;
+  delete;
+  //field ( readonly ) BooksupplUuid;
+  field ( numbering : managed, readonly ) BooksupplUuid;
+  field ( readonly ) TravelUuid, ParentUuid;
+  association _Travel;
+  association _Booking;
+
+  mapping for zhs_booking_supp
+    {
+      BooksupplUuid       = booksuppl_uuid;
+      BookingSupplementId = booking_supplement_id;
+      SupplementId        = supplement_id;
+      Price               = price;
+      CurrencyCode        = currency_code;
+      LastChangedAt       = last_changed_at;
+      ParentUuid          = parent_uuid;
+    }
+}
